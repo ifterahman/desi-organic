@@ -91,14 +91,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         return { error };
       }
 
-      // Create profile after signup
       // Profile is auto-created by database trigger
-      // No need to manually insert
-        
-        if (profileError) {
-          console.error("Error creating profile:", profileError);
-        }
-      }
 
       return { error: null };
     } catch (e) {
