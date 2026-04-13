@@ -119,7 +119,7 @@ const AdminNewProduct = () => {
         images,
       };
 
-      const { error } = await supabase.from("products").insert([productData]);
+      const { error } = await supabase.from("products").insert([productData as any]);
 
       if (error) throw error;
 

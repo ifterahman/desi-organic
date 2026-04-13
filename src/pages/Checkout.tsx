@@ -131,7 +131,7 @@ const Checkout = () => {
       }
 
       // Check validity
-      if (coupon.valid_until && new Date(coupon.valid_until) < now) {
+      if (coupon.valid_until && new Date(coupon.valid_until) < new Date()) {
         toast({ title: "কুপনের মেয়াদ শেষ", variant: "destructive" });
         return;
       }

@@ -87,7 +87,7 @@ const AdminChat = () => {
       await supabase
         .from("chat_sessions")
         .update({ last_message_at: new Date().toISOString() })
-        .eq("session_id", selectedSessionId);
+        .eq("id", selectedSessionId);
 
       setNewMessage("");
     } catch (error) {
