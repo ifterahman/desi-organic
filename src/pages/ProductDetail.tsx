@@ -110,7 +110,7 @@ const ProductDetail = () => {
     queryKey: ['product-reviews', product?.id],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('reviews')
+        .from('product_reviews')
         .select('*')
         .eq('product_id', product!.id)
         .eq('is_approved', true)
@@ -142,14 +142,14 @@ const ProductDetail = () => {
   const submitReviewMutation = useMutation({
     mutationFn: async () => {
       const { error } = await supabase
-        .from('reviews')
+        .from('product_reviews')
         .insert({
           product_id: product!.id,
           customer_name: reviewName,
           rating: reviewRating,
           comment: reviewComment || null,
           is_approved: false,
-        });
+        } as any);
       
       if (error) throw error;
     },

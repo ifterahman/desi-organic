@@ -61,7 +61,7 @@ export const useUpdateBlogPost = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
-      const { error } = await supabase.from("blog_posts").update(updates).eq("id", id);
+      const { error } = await supabase.from("blog_posts").update(updates as any).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -123,7 +123,7 @@ export const useUpdatePageContent = () => {
     mutationFn: async ({ pageKey, ...updates }: { pageKey: string; [key: string]: any }) => {
       const { error } = await supabase
         .from("page_contents")
-        .update(updates)
+        .update(updates as any)
         .eq("page_key", pageKey);
       if (error) throw error;
     },
@@ -172,7 +172,7 @@ export const useUpdateHomepageSection = () => {
     mutationFn: async ({ sectionKey, ...updates }: { sectionKey: string; [key: string]: any }) => {
       const { error } = await supabase
         .from("homepage_sections")
-        .update(updates)
+        .update(updates as any)
         .eq("section_key", sectionKey);
       if (error) throw error;
     },
@@ -225,7 +225,7 @@ export const useUpdateTestimonial = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
-      const { error } = await supabase.from("testimonials").update(updates).eq("id", id);
+      const { error } = await supabase.from("testimonials").update(updates as any).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {

@@ -81,7 +81,7 @@ export const useUpdateCategory = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
-      const { error } = await supabase.from("categories").update(updates).eq("id", id);
+      const { error } = await supabase.from("categories").update(updates as any).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -126,7 +126,7 @@ export const useUpdateOrder = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
-      const { error } = await supabase.from("orders").update(updates).eq("id", id);
+      const { error } = await supabase.from("orders").update(updates as any).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -171,7 +171,7 @@ export const useUpdateCoupon = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
-      const { error } = await supabase.from("coupons").update(updates).eq("id", id);
+      const { error } = await supabase.from("coupons").update(updates as any).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -231,7 +231,7 @@ export const useUpdateDeliveryZone = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
-      const { error } = await supabase.from("delivery_zones").update(updates).eq("id", id);
+      const { error } = await supabase.from("delivery_zones").update(updates as any).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -291,7 +291,7 @@ export const useUpdateBanner = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
-      const { error } = await supabase.from("banners").update(updates).eq("id", id);
+      const { error } = await supabase.from("banners").update(updates as any).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {

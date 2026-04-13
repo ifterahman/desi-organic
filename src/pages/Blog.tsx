@@ -50,10 +50,7 @@ const Blog = () => {
                     <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                       <span className="flex items-center gap-1">
                         <Calendar className="h-4 w-4" />
-                        {post.published_at 
-                          ? new Date(post.published_at).toLocaleDateString("bn-BD")
-                          : new Date(post.created_at).toLocaleDateString("bn-BD")
-                        }
+                        {new Date(post.created_at).toLocaleDateString("bn-BD")}
                       </span>
                       <span className="flex items-center gap-1">
                         <User className="h-4 w-4" />
