@@ -307,6 +307,7 @@ export type Database = {
       incomplete_orders: {
         Row: {
           cart_data: Json | null
+          converted_order_id: string | null
           created_at: string
           customer_email: string | null
           customer_name: string | null
@@ -324,6 +325,7 @@ export type Database = {
         }
         Insert: {
           cart_data?: Json | null
+          converted_order_id?: string | null
           created_at?: string
           customer_email?: string | null
           customer_name?: string | null
@@ -341,6 +343,7 @@ export type Database = {
         }
         Update: {
           cart_data?: Json | null
+          converted_order_id?: string | null
           created_at?: string
           customer_email?: string | null
           customer_name?: string | null
@@ -357,6 +360,13 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "incomplete_orders_converted_order_id_fkey"
+            columns: ["converted_order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "incomplete_orders_delivery_zone_id_fkey"
             columns: ["delivery_zone_id"]
@@ -437,6 +447,8 @@ export type Database = {
           shipping_address: string
           shipping_area: string | null
           shipping_city: string
+          steadfast_status: string | null
+          steadfast_tracking_code: string | null
           subtotal: number
           total_amount: number
           tracking_id: string | null
@@ -462,6 +474,8 @@ export type Database = {
           shipping_address: string
           shipping_area?: string | null
           shipping_city: string
+          steadfast_status?: string | null
+          steadfast_tracking_code?: string | null
           subtotal?: number
           total_amount?: number
           tracking_id?: string | null
@@ -487,6 +501,8 @@ export type Database = {
           shipping_address?: string
           shipping_area?: string | null
           shipping_city?: string
+          steadfast_status?: string | null
+          steadfast_tracking_code?: string | null
           subtotal?: number
           total_amount?: number
           tracking_id?: string | null
@@ -526,6 +542,94 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      product_reviews: {
+        Row: {
+          comment: string | null
+          created_at: string
+          customer_name: string
+          id: string
+          is_approved: boolean | null
+          product_id: string
+          rating: number | null
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          customer_name: string
+          id?: string
+          is_approved?: boolean | null
+          product_id: string
+          rating?: number | null
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          customer_name?: string
+          id?: string
+          is_approved?: boolean | null
+          product_id?: string
+          rating?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_reviews_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_variants: {
+        Row: {
+          created_at: string
+          id: string
+          is_active: boolean | null
+          is_default: boolean | null
+          name_bn: string
+          price: number
+          product_id: string
+          sale_price: number | null
+          stock_quantity: number | null
+          weight_unit: string | null
+          weight_value: number | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          is_default?: boolean | null
+          name_bn: string
+          price?: number
+          product_id: string
+          sale_price?: number | null
+          stock_quantity?: number | null
+          weight_unit?: string | null
+          weight_value?: number | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          is_default?: boolean | null
+          name_bn?: string
+          price?: number
+          product_id?: string
+          sale_price?: number | null
+          stock_quantity?: number | null
+          weight_unit?: string | null
+          weight_value?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_variants_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       products: {
         Row: {
