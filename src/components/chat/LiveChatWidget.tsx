@@ -88,20 +88,24 @@ const LiveChatWidget = () => {
     setLoading(true);
 
     try {
-      // Create or update chat session
+      // Create or find existing chat session
       const { data: existingSession } = await supabase
         .from("chat_sessions")
         .select("id")
-        .eq("session_id", sessionId)
+        .eq("id", sessionId!)
         .maybeSingle();
 
       if (!existingSession) {
-        await supabase.from("chat_sessions").insert({
-          session_id: sessionId,
-          customer_name: customerName,
-          customer_phone: customerPhone,
+        const { data: newSession } = await supabase.from("chat_sessions").insert({
+          visitor_name: customerName,
+          visitor_phone: customerPhone,
           user_id: user?.id || null,
-        });
+        } as any).select("id").single();
+        
+        if (newSession) {
+          setSessionId(newSession.id);
+          localStorage.setItem("chat_session_id", newSession.id);
+        }
       }
 
       localStorage.setItem("chat_started", "true");
@@ -124,14 +128,13 @@ const LiveChatWidget = () => {
         session_id: sessionId,
         sender_type: "user",
         message: newMessage,
-        user_id: user?.id || null,
-      });
+      } as any);
 
       // Update session's last message timestamp
       await supabase
         .from("chat_sessions")
         .update({ last_message_at: new Date().toISOString() })
-        .eq("session_id", sessionId);
+        .eq("id", sessionId);
 
       setNewMessage("");
     } catch (error) {

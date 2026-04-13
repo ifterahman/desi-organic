@@ -21,7 +21,7 @@ const ReturnPolicy = () => {
               <RotateCcw className="h-8 w-8 text-primary" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {pageContent?.title_bn || "রিটার্ন পলিসি"}
+              {pageContent?.title || "রিটার্ন পলিসি"}
             </h1>
             <p className="text-muted-foreground">
               আমাদের রিটার্ন ও রিফান্ড নীতিমালা

@@ -27,7 +27,7 @@ const FAQ = () => {
               <HelpCircle className="h-8 w-8 text-primary" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {pageContent?.title_bn || "সাধারণ জিজ্ঞাসা"}
+              {pageContent?.title || "সাধারণ জিজ্ঞাসা"}
             </h1>
             <p className="text-muted-foreground">
               প্রায়শই জিজ্ঞাসিত প্রশ্ন ও উত্তর
