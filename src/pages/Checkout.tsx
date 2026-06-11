@@ -519,24 +519,6 @@ const Checkout = () => {
                         </div>
                       </label>
 
-                      <label
-                        className={`flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-colors ${
-                          paymentMethod === "uddoktapay"
-                            ? "border-primary bg-primary/5"
-                            : "border-border hover:border-primary/50"
-                        }`}
-                      >
-                        <RadioGroupItem value="uddoktapay" />
-                        <div className="flex-1">
-                          <p className="font-medium text-foreground">অনলাইন পেমেন্ট (bKash/Nagad/Card)</p>
-                          <p className="text-sm text-muted-foreground">
-                            UddoktaPay এর মাধ্যমে নিরাপদ পেমেন্ট
-                          </p>
-                        </div>
-                        <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
-                          নিরাপদ
-                        </span>
-                      </label>
 
                       <label
                         className={`flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-colors ${
