@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ProductCard from "@/components/home/ProductCard";
 import MiniCartPopup from "@/components/cart/MiniCartPopup";
 import { Skeleton } from "@/components/ui/skeleton";
 import { trackViewContent, trackAddToCart } from "@/lib/tracking";
@@ -136,6 +137,23 @@ const ProductDetail = () => {
       return data;
     },
     enabled: !!product?.category_id,
+  });
+
+  // Fetch related products (same category, excluding current)
+  const { data: relatedProducts = [] } = useQuery({
+    queryKey: ['related-products', product?.category_id, product?.id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('category_id', product!.category_id!)
+        .eq('is_active', true)
+        .neq('id', product!.id)
+        .limit(8);
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!product?.category_id && !!product?.id,
   });
 
   // Submit review mutation
@@ -668,6 +686,35 @@ const ProductDetail = () => {
             </Tabs>
           </div>
         </div>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <section className="container py-10 md:py-14">
+            <div className="mb-6 md:mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+                সম্পর্কিত পণ্য
+              </h2>
+              <p className="text-muted-foreground mt-1">
+                আপনার পছন্দ হতে পারে এমন আরো পণ্য
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+              {relatedProducts.map((rp: any) => (
+                <ProductCard
+                  key={rp.id}
+                  id={rp.id}
+                  name_bn={rp.name_bn}
+                  slug={rp.slug}
+                  image_url={rp.images?.[0] || ''}
+                  base_price={rp.base_price}
+                  sale_price={rp.sale_price}
+                  stock_quantity={rp.stock_quantity}
+                  is_featured={rp.is_featured}
+                />
+              ))}
+            </div>
+          </section>
+        )}
       </main>
 
       <Footer />
