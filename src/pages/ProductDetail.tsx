@@ -139,6 +139,23 @@ const ProductDetail = () => {
     enabled: !!product?.category_id,
   });
 
+  // Fetch related products (same category, excluding current)
+  const { data: relatedProducts = [] } = useQuery({
+    queryKey: ['related-products', product?.category_id, product?.id],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('category_id', product!.category_id!)
+        .eq('is_active', true)
+        .neq('id', product!.id)
+        .limit(8);
+      if (error) throw error;
+      return data;
+    },
+    enabled: !!product?.category_id && !!product?.id,
+  });
+
   // Submit review mutation
   const submitReviewMutation = useMutation({
     mutationFn: async () => {
