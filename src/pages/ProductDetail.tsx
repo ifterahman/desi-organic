@@ -686,6 +686,35 @@ const ProductDetail = () => {
             </Tabs>
           </div>
         </div>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <section className="container py-10 md:py-14">
+            <div className="mb-6 md:mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground">
+                সম্পর্কিত পণ্য
+              </h2>
+              <p className="text-muted-foreground mt-1">
+                আপনার পছন্দ হতে পারে এমন আরো পণ্য
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+              {relatedProducts.map((rp: any) => (
+                <ProductCard
+                  key={rp.id}
+                  id={rp.id}
+                  name_bn={rp.name_bn}
+                  slug={rp.slug}
+                  image_url={rp.images?.[0] || ''}
+                  base_price={rp.base_price}
+                  sale_price={rp.sale_price}
+                  stock_quantity={rp.stock_quantity}
+                  is_featured={rp.is_featured}
+                />
+              ))}
+            </div>
+          </section>
+        )}
       </main>
 
       <Footer />
